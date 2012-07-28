@@ -1,6 +1,6 @@
 package Plack::Middleware::Cerberus;
 {
-  $Plack::Middleware::Cerberus::VERSION = '0.02';
+  $Plack::Middleware::Cerberus::VERSION = '0.03';
 }
 
 use strict;
@@ -26,7 +26,7 @@ sub prepare_app {
 sub call {
 #===================================
     my ( $self, $env ) = @_;
-    my $info = $env->{cerberus} = $self->client->request(
+    my $info = $env->{'plack.cerberus'} = $self->client->request(
         ip => $env->{REMOTE_ADDR}     || '',
         ua => $env->{HTTP_USER_AGENT} || ''
     );
@@ -77,7 +77,7 @@ Plack::Middleware::Cerberus - Include geo, time zone, user-agent and throttling 
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 SYNOPSIS
 
@@ -85,7 +85,7 @@ version 0.02
 
     my $app = sub {
         my $env = shift;
-        my $time_zone = $env->{cerberus}{tz}{name};
+        my $time_zone = $env->{'plack.cerberus'}{tz}{name};
         ...
     };
 
@@ -97,7 +97,7 @@ version 0.02
 =head1 DESCRIPTION
 
 L<Plack::Middleware::Cerberus> adds metadata from an L<App::Cerberus> server to
-the C<$env> as C<< $env->{cerberus} >>.
+the C<$env> as C<< $env->{'plack.cerberus'} >>.
 
 For instance:
 
@@ -161,15 +161,15 @@ response, with a C<Retry-After: $seconds> header.
 
 =head1 ACCESSING CERBERUS INFO
 
-The C<$env> variable will contain a key C<cerberus>
+The C<$env> variable will contain a key C<'plack.cerberus'>
 with any data that L<App::Cerberus> has returned, for instance:
 
     my $app = sub {
         my $env        = shift;
-        my $geo_info   = $env->{cerberus}{geo};
-        my $time_zone  = $env->{cerberus}{tz};
-        my $user_agent = $env->{cerberus}{ua};
-        my $throttle   = $env->{cerberus}{throttle};
+        my $geo_info   = $env->{'plack.cerberus'}{geo};
+        my $time_zone  = $env->{'plack.cerberus'}{tz};
+        my $user_agent = $env->{'plack.cerberus'}{ua};
+        my $throttle   = $env->{'plack.cerberus'}{throttle};
     };
 
 =head1 SEE ALSO

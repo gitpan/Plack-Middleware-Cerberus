@@ -3,14 +3,14 @@ NAME
     throttling from App::Cerberus
 
 VERSION
-    version 0.02
+    version 0.03
 
 SYNOPSIS
         use Plack::Builder;
 
         my $app = sub {
             my $env = shift;
-            my $time_zone = $env->{cerberus}{tz}{name};
+            my $time_zone = $env->{'plack.cerberus'}{tz}{name};
             ...
         };
 
@@ -21,7 +21,7 @@ SYNOPSIS
 
 DESCRIPTION
     Plack::Middleware::Cerberus adds metadata from an App::Cerberus server
-    to the $env as "$env->{cerberus}".
+    to the $env as "$env->{'plack.cerberus'}".
 
     For instance:
 
@@ -70,15 +70,15 @@ CONFIG
     response, with a "Retry-After: $seconds" header.
 
 ACCESSING CERBERUS INFO
-    The $env variable will contain a key "cerberus" with any data that
+    The $env variable will contain a key 'plack.cerberus' with any data that
     App::Cerberus has returned, for instance:
 
         my $app = sub {
             my $env        = shift;
-            my $geo_info   = $env->{cerberus}{geo};
-            my $time_zone  = $env->{cerberus}{tz};
-            my $user_agent = $env->{cerberus}{ua};
-            my $throttle   = $env->{cerberus}{throttle};
+            my $geo_info   = $env->{'plack.cerberus'}{geo};
+            my $time_zone  = $env->{'plack.cerberus'}{tz};
+            my $user_agent = $env->{'plack.cerberus'}{ua};
+            my $throttle   = $env->{'plack.cerberus'}{throttle};
         };
 
 SEE ALSO
