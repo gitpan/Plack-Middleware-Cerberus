@@ -1,6 +1,6 @@
 package Plack::Middleware::Cerberus;
 {
-  $Plack::Middleware::Cerberus::VERSION = '0.03';
+  $Plack::Middleware::Cerberus::VERSION = '0.04';
 }
 
 use strict;
@@ -77,7 +77,7 @@ Plack::Middleware::Cerberus - Include geo, time zone, user-agent and throttling 
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 SYNOPSIS
 
